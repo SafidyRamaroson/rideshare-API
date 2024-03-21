@@ -1,5 +1,5 @@
 
-modele.exports = (database,DataTypes)=>{
+module.exports = (database,DataTypes)=>{
     const Vehicle = database.define('Vehicle', {
         VehicleID: {
           type: DataTypes.INTEGER,

@@ -1,5 +1,5 @@
 module.exports = (database,DataTypes)=>{
-    const Reservation = sequelize.define('Reservation', {
+    const Reservation = database.define('Reservation', {
         ReservationID: {
           type: DataTypes.INTEGER,
           primaryKey: true,

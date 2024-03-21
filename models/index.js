@@ -1,16 +1,21 @@
 const {Sequelize,DataTypes} = require("sequelize");
-const dbConfig = require("./../config/db.config.js");
+
 require("dotenv").config();
 
-const database = new Sequelize(dbConfig.DB,dbConfig.USER,dbConfig.PASSWORD,{
-    host:dbConfig.HOST,
-    dialect:dbConfig.dialect,
+const database = new Sequelize(
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASSWORD,
+    {
+    host:process.env.DB_HOST,
+    dialect:"mysql",
     pool:{
-        max:dbConfig.pool.max,
-        min:dbConfig.pool.min,
-        acquire:dbConfig.pool.acquire,
-        idle:dbConfig.pool.idle
-    }
+        max:6,
+        min:0,
+        acquire:30000,
+        idle:10000
+    },
+    logging:false
 })
 
 const db = {}
