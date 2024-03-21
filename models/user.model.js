@@ -2,45 +2,36 @@
 
 /*** GENERAL USER SCHEMA ***/
 module.exports = (database,DataTypes,)=>{
-    const User= database.define('User', {
-        id: {
-          type: DataTypes.STRING,
+    const User= database.define('User',{
+        UserID: {
+          type: DataTypes.INTEGER,
           primaryKey: true,
+          autoIncrement: true
         },
         firstName: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: DataTypes.STRING
         },
         lastName: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: DataTypes.STRING
+        },
+        dateOfBirth: {
+          type: DataTypes.DATE
         },
         email: {
-          type: DataTypes.STRING,
-          allowNull: false,
-          unique: true,
-          validate: {
-            isEmail: true,
-          },
+          type: DataTypes.STRING
         },
         password: {
-          type: DataTypes.STRING,
-          allowNull: false,
+          type: DataTypes.STRING
         },
-        phone: {
-          type: DataTypes.STRING,
-          validate: {
-            is: /^[0-9]{10}$/,
-          },
+        phoneNumber: {
+          type: DataTypes.STRING
         },
-        resetPasswordLink: {
-          type: DataTypes.STRING,
-          defaultValue: '',
-        }
-      }, {
+        nationalID: {
+          type: DataTypes.STRING
+        } 
+      },{
         timestamps: false, 
-      });
-    
+    });
     return User; 
 }
 
