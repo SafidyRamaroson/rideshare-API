@@ -34,7 +34,7 @@ module.exports = (database,DataTypes) => {
       });
 
     Trip.belongsTo(require("./user.model")(database,DataTypes), { foreignKey: 'DriverID' });
-    Trip.belongsTo(require("./drivingLicense.model"), { foreignKey: 'VehicleID' });
-
+    Trip.belongsTo(require("./drivingLicense.model")(database,DataTypes), { foreignKey: 'VehicleID' });
+    
     return Trip ;
 }
