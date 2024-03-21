@@ -4,7 +4,7 @@
   "description": "e-covoiture-CH",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js"
   },
   "author": "Safidy RM",
   "license": "ISC",
@@ -20,6 +20,7 @@
     "multer": "^1.4.5-lts.1",
     "mysql2": "^3.9.2",
     "nanoid": "^5.0.6",
+    "nodemon": "^3.1.0",
     "passport": "^0.7.0",
     "passport-google-oidc": "^0.1.0",
     "sequelize": "^6.37.1",

@@ -16,7 +16,7 @@ app.use(cors(corsOptions));
 /*** DEFINE THE API ROUTE ***/
 app.use("/api",apiRoutes);
 
-app.use('/', ()=>{
+app.use('/', (req,res)=>{
     res.send('API IS WORKING')
 });
 
