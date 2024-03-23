@@ -27,7 +27,7 @@ db.databaseConf = database
 db.dropNoteManagementTable = ()=>{
     db.databaseConf.sync({force:true})
     .then(()=>{
-        console.log('e-covoiture-ch table just dropped and db re-synced.')
+        console.log('e-covoiture-ch table just dropped and db re-synced.');
     })
 }
 
