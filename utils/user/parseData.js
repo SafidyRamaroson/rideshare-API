@@ -1,5 +1,4 @@
 const { z }=  require("zod");
-const is = require("is-zod");
 
 const parseRegisterData = (data)=>{
 
