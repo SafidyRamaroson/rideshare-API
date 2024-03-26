@@ -10,7 +10,7 @@ module.exports = (database,DataTypes)=>{
             unique:true,
         }
     },{
-        timestams:false
+        timestamps: false, 
     });
     return SpecialSubscriber
 }
