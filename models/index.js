@@ -36,5 +36,6 @@ db.trip = require("./trip.model.js")(database,DataTypes);
 db.reservation = require("./reservation.model.js")(database,DataTypes);
 db.vehicle = require("./vehicle.model.js")(database,DataTypes);
 db.drivingLicense = require("./drivingLicense.model.js")(database,DataTypes);
+db.SpecialSubscriber = require("./specialSubscriber.model.js")(database,DataTypes);
 
 module.exports = db

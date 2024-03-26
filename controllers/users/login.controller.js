@@ -6,8 +6,9 @@ const db  = require("./../../models/index");
 const login = async(req,res) => {
     const { email, password } = req.body;
     const parsedData = parseLoginData(req.body);
-    if(!parsedData.success){
-            return res.status(401).json({message:"Please add all fields"});
+        if(!parsedData.success){
+            const err = parsedData.error.issues.map((e) => ({ path: e.path[0], message: e.message })) 
+            return res.status(401).json([...err]);
         }
         
         const foundUser = await db.user.findOne({where:{email}});
@@ -23,13 +24,13 @@ const login = async(req,res) => {
                 message:"Incorrect Password"
             })
         }else{  
-            const token =  generateToken(foundUser.UserID);
+            const token =  generateToken(foundUser);
             res.status(200).header("token",token).json({
-                id:foundUser.UserID,
-                firstName:foundUser?.firstName,
-                lastName:foundUser?.lastName,
-                email:foundUser?.email,
-                phone:foundUser?.phone,
+                // id:foundUser.UserID,
+                // firstName:foundUser?.firstName,
+                // lastName:foundUser?.lastName,
+                // email:foundUser?.email,
+                // phone:foundUser?.phone,
                 token,
             })
         }

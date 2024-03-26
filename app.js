@@ -4,6 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const { corsOptions } = require('./config/config'); 
 
+
 /***  API ROUTE ***/
 const apiRoutes = require("./routes/api");
 
@@ -11,10 +12,11 @@ const apiRoutes = require("./routes/api");
 /*** Use body parser middleware to parse body of incoming requests ***/
 app.use(bodyParser.urlencoded( { extended: false }));
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(cors());
 
 /*** DEFINE THE API ROUTE ***/
 app.use("/api",apiRoutes);
+
 
 app.use('/', (req,res)=>{
     res.send('API IS WORKING')

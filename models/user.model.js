@@ -18,7 +18,12 @@ module.exports = (database,DataTypes,)=>{
           type: DataTypes.DATE
         },
         email: {
-          type: DataTypes.STRING
+          type: DataTypes.STRING,
+          unique:true,
+        },
+        gender: {
+          type:DataTypes.STRING,
+          default:null
         },
         password: {
           type: DataTypes.STRING
@@ -27,8 +32,9 @@ module.exports = (database,DataTypes,)=>{
           type: DataTypes.STRING
         },
         nationalID: {
-          type: DataTypes.STRING
-        } 
+          type: DataTypes.STRING,
+          unique:true
+        }
       },{
         timestamps: false, 
     });
