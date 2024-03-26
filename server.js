@@ -10,6 +10,6 @@ const server = http.createServer(app);
 server.listen(PORT, ()=>{
     console.log(`Server is running on  http://localhost:${PORT}`);
 });
-db.databaseConf.sync();    
+// db.databaseConf.sync();    
 
 
