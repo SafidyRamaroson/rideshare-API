@@ -38,4 +38,4 @@ db.vehicle = require("./vehicle.model.js")(database,DataTypes);
 db.drivingLicense = require("./drivingLicense.model.js")(database,DataTypes);
 db.SpecialSubscriber = require("./specialSubscriber.model.js")(database,DataTypes);
 
-module.exports = db
+module.exports = db;

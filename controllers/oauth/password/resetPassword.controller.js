@@ -1,7 +1,7 @@
 const { DATE } = require("sequelize");
-const db = require("./../../models/index");
+const db = require("../../../models/index");
 const jwt = require("jsonwebtoken");
-const hashPassword = require("./../../utils/user/hashPassword");
+const hashPassword = require("../../../utils/user/hashPassword");
 require("dotenv").config();
 
 const resetPassword = async(req,res)=>{

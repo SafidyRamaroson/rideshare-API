@@ -15,7 +15,7 @@ const parseRegisterData = (data)=>{
             }).
             trim().
             min(1,"Last name cannot be empty"),
-        dateOfBirth:z.date(),
+        dateOfBirth:z.string(),
         email:z.
             string({
                 required_error:"Email is required"
@@ -23,7 +23,7 @@ const parseRegisterData = (data)=>{
             trim().
             min(1,"Email cannot be empty").
             email("Invalid email"),
-        gender:z.enum(["Mr","Mrs",""], {
+        gender:z.enum(["Mr","Md",""], {
             errorMap:(issue,ctx)=>{
                 return { message:"Invalid gender"}
             },

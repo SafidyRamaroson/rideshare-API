@@ -14,6 +14,9 @@ module.exports = (database,DataTypes) => {
         departureTime: {
           type: DataTypes.DATE
         },
+        arrivalTime: {
+          type:DataTypes.DATE
+        },
         pricePerPassenger: {
           type: DataTypes.FLOAT
         },
