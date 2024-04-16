@@ -10,11 +10,13 @@
 
 const fetchAllTripDriver = require("./fetchAllTripCreatedByDriver");
 const createNewTrip = require("./createNewTrip");
+const fetchTripDetails = require("./fetchTripDetails");
 
 
 const tripController = Object.freeze({
     fetchAllTripDriver,
     createNewTrip,
+    fetchTripDetails
 });
 
 module.exports = tripController;
