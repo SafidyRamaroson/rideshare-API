@@ -11,5 +11,7 @@ tripRouter.post("/createOne",tripController.createNewTrip);
 // fetch trip details using tripID
 tripRouter.get("/:TripID/details",tripController.fetchTripDetails);
 
+// delete one trip
+tripRouter.delete("/:TripID",tripController.deletedTrip);
 
 module.exports = tripRouter;

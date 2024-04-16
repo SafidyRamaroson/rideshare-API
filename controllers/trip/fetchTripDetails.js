@@ -3,7 +3,7 @@ const typeOf = require("./../../utils/common/typeOf");
 
 const fetchTripDetails = async(req,res)=>{
     const { TripID } = req.params;
-    console.log(TripID);
+   
     // fetch trip details by ID 
     try {
         const tripDetails = await db.trip.findOne({
@@ -12,10 +12,10 @@ const fetchTripDetails = async(req,res)=>{
         });
      
         if(tripDetails === null){    
-            console.log(`Trip with ${TripID} don't exist in database`);
+            console.log(`Trip with ${TripID} don't exist in the database`);
             return res.status(404).json({
                 message: "Trip not found"
-            })
+            });
         }
 
         res.status(200).json({
@@ -23,7 +23,6 @@ const fetchTripDetails = async(req,res)=>{
         });
     } catch (error) {
         console.log("Error:"+error);
-        console.log("true")
         res.status(500).json({message:"Internal server error"});
     }
 }
