@@ -1,7 +1,8 @@
 const express = require('express');
 const tripRouter = express.Router();
-const fetchAllTripDriver = require('./../controllers/trip/fetchAllTripCreatedByDriver');
+const tripController = require("./../controllers/trip/index.controller");
 
-tripRouter.get("/driver",fetchAllTripDriver);
+tripRouter.get("/driver",tripController.fetchAllTripDriver);
+tripRouter.post("/createOne",tripController.createNewTrip);
 
 module.exports = tripRouter;

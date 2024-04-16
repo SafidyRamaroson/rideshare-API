@@ -18,8 +18,8 @@ const register = async(req,res)=>{
         return res.status(400).json({error:[err[0]]});
     }
     const foundUser = await db.user.findOne({where:{email}});
-
-    if(foundUser.length != 0){
+ 
+    if(foundUser !== null){
         return res.status(400).json({message:"User already exists in this email"});
     }
 
@@ -30,7 +30,7 @@ const register = async(req,res)=>{
     if(req.body.unsubscribe){
         const subscriber = await db.SpecialSubscriber.findOne({where:{email}});
 
-        if(subscriber.length == 0){
+        if(subscriber !== null){
             await db.SpecialSubscriber.create({email});
         }
     }

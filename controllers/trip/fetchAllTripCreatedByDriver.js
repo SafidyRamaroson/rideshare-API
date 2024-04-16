@@ -9,7 +9,7 @@ const fetchAllTripDriver = async(req,res)=>{
 
     if(!foundUser){
         console.log("user don't have an account");
-        return res.status(400).json({
+        return res.status(404).json({
             message:`Bad Request ,user with email ${email} don't have an account`
         });
     }
@@ -19,7 +19,7 @@ const fetchAllTripDriver = async(req,res)=>{
     try {
         const listDriverTrips = await db.trip.findAll({
             // exclude cols in table1 as trip here
-            attributes : { exclude: ["DriverID","VehicleID"] },
+            attributes : { exclude: ["DriverID"] },
             include: [{
                 model:db.user,
                 where: {

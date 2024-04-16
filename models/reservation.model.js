@@ -24,7 +24,7 @@ module.exports = (database,DataTypes)=>{
         }
       });
       
-    Reservation.belongsTo(require("./user.model")(database,DataTypes),{foreignKey:'PassengerID'});
+    Reservation.belongsTo(require("./user.model")(database,DataTypes),{foreignKey:'UserID'});
     Reservation.belongsTo(require("./trip.model")(database,DataTypes),{foreignKey:'TripID'});
 
     return Reservation;   

@@ -33,7 +33,7 @@ const parseRegisterData = (data)=>{
             })
             .trim()
             .min(8,"Password must contains at least 8 characters"),
-        unsubscribe:z.boolean("unsubscribe must be boolean"),
+        // unsubscribe:z.boolean("unsubscribe must be boolean"),
     });
   
     const requiredNewUserSchema = newUserSchema.required();

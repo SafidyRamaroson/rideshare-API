@@ -5,26 +5,40 @@ module.exports = (database,DataTypes) => {
           primaryKey: true,
           autoIncrement: true
         },
-        departureLocation: {
+        departureProvince:{
           type: DataTypes.STRING
         },
-        destination: {
+        departurePrecise :{
+          type:DataTypes.STRING
+        },
+        destinationProvince:{
           type: DataTypes.STRING
         },
-        departureTime: {
-          type: DataTypes.DATE
+        destinationPrecise :{
+          type:DataTypes.STRING
         },
-        arrivalTime: {
-          type:DataTypes.DATE
+        stops: {
+          type: DataTypes.JSON
         },
-        pricePerPassenger: {
+        setsOffered: {
+          type: DataTypes.JSON 
+        },
+        pricePerSeat: {
           type: DataTypes.FLOAT
         },
-        availableSeats: {
-          type: DataTypes.INTEGER
+        additionalNotes: {
+          type: DataTypes.STRING,
+          allowNull: true
         },
-        tripDescription: {
-          type: DataTypes.STRING
+        returnDatetime:{
+          type:DataTypes.DATE,
+          allowNull:true,
+        },
+        refundable: {
+          type: DataTypes.BOOLEAN
+        },
+        oneWay: {
+          type: DataTypes.BOOLEAN
         },
         createdAt: {
           type: DataTypes.DATE,
@@ -36,8 +50,6 @@ module.exports = (database,DataTypes) => {
         }
       });
 
-    Trip.belongsTo(require("./user.model")(database,DataTypes), { foreignKey: 'DriverID' });
-    Trip.belongsTo(require("./drivingLicense.model")(database,DataTypes), { foreignKey: 'VehicleID' });
-    
+    Trip.belongsTo(require("./user.model")(database,DataTypes), { foreignKey: 'DriverID' });    
     return Trip ;
 }

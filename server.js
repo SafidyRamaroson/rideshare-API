@@ -12,4 +12,5 @@ server.listen(PORT, ()=>{
 });
 
 // db.databaseConf.sync();
+// db.dropNoteManagementTable();
 
