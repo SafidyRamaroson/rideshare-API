@@ -14,4 +14,9 @@ tripRouter.get("/:TripID/details",tripController.fetchTripDetails);
 // delete one trip
 tripRouter.delete("/:TripID",tripController.deletedTrip);
 
+
+// update trip
+tripRouter.put("/:TripID",tripController.updateTrip);
+
+
 module.exports = tripRouter;
