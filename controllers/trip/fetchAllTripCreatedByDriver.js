@@ -17,7 +17,7 @@ const fetchAllTripDriver = async(req,res)=>{
     // get  list trips created by this driver with email in database
     // join the intersection between the table user and the table trip
     try {
-        const listDriverTrips = await db.trip.findAll({
+        const listDriverTripsData = await db.trip.findAll({
             // exclude cols in table1 as trip here
             attributes : { exclude: ["DriverID"] },
             include: [{
@@ -32,7 +32,7 @@ const fetchAllTripDriver = async(req,res)=>{
 
         res.status(200).json({
             message:"List of Trips created by Driver ID",
-            data: listDriverTrips
+            data: listDriverTripsData
         })
     }catch(error){
         console.log('Error:'+ error);

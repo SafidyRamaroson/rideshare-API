@@ -3,19 +3,27 @@ module.exports = (database,DataTypes) => {
         TripID: {
           type: DataTypes.INTEGER,
           primaryKey: true,
-          autoIncrement: true
+          autoIncrement: true,  
         },
         departureProvince:{
-          type: DataTypes.STRING
+          type: DataTypes.STRING,
+          allowNull : false
         },
         departurePrecise :{
-          type:DataTypes.STRING
+          type:DataTypes.STRING,
+          allowNull : false
         },
         destinationProvince:{
-          type: DataTypes.STRING
+          type: DataTypes.STRING,
+          allowNull:false
         },
         destinationPrecise :{
-          type:DataTypes.STRING
+          type:DataTypes.STRING,
+          allowNull:false
+        },
+        dateOfDeparture : {
+          type:DataTypes.DATE,
+          allowNull : false
         },
         stops: {
           type: DataTypes.JSON
@@ -28,7 +36,7 @@ module.exports = (database,DataTypes) => {
         },
         additionalNotes: {
           type: DataTypes.STRING,
-          allowNull: true
+          allowNull: false
         },
         returnDatetime:{
           type:DataTypes.DATE,

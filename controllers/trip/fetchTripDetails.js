@@ -6,12 +6,12 @@ const fetchTripDetails = async(req,res)=>{
    
     // fetch trip details by ID 
     try {
-        const tripDetails = await db.trip.findOne({
+        const tripDetailsData = await db.trip.findOne({
             where:{TripID},
             attributes: { exclude: ["DriverID","updatedAt"] }
         });
      
-        if(tripDetails === null){    
+        if(tripDetails){    
             console.log(`Trip with ${TripID} don't exist in the database`);
             return res.status(404).json({
                 message: "Trip not found"
@@ -19,7 +19,7 @@ const fetchTripDetails = async(req,res)=>{
         }
 
         res.status(200).json({
-            data:tripDetails
+            data:tripDetailsData
         });
     } catch (error) {
         console.log("Error:"+error);

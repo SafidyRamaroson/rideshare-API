@@ -24,7 +24,7 @@ db.Sequelize = Sequelize
 db.databaseConf = database
 
 //function drop the existing table and re-sync database
-db.dropNoteManagementTable = ()=>{
+db.dropRideShareTable = ()=>{
     db.databaseConf.sync({force:true})
     .then(()=>{
         console.log('e-covoiture-ch table just dropped and db re-synced.');

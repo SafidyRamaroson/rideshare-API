@@ -18,5 +18,7 @@ tripRouter.delete("/:TripID",tripController.deletedTrip);
 // update trip
 tripRouter.put("/:TripID",tripController.updateTrip);
 
+// fetch all trip
+tripRouter.get("/search",tripController.searchTrips);
 
 module.exports = tripRouter;
