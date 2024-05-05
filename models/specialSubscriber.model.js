@@ -8,6 +8,7 @@ module.exports = (database,DataTypes)=>{
         email:{
             type:DataTypes.STRING,
             unique:true,
+            allowNull:false,
         }
     },{
         timestamps: false, 

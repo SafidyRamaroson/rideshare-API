@@ -20,20 +20,22 @@ const database = new Sequelize(
 
 const db = {}
 
-db.Sequelize = Sequelize
-db.databaseConf = database
+db.Sequelize = Sequelize;
+db.databaseConf = database;
 
 //function drop the existing table and re-sync database
 db.dropRideShareTable = ()=>{
     db.databaseConf.sync({force:true})
     .then(()=>{
         console.log('e-covoiture-ch table just dropped and db re-synced.');
-    })
+    });
 }
 
 db.SpecialSubscriber = require("./specialSubscriber.model.js")(database,DataTypes);
 db.reservation = require("./reservation.model.js")(database,DataTypes);
 db.user = require("./user.model.js")(database,DataTypes);
 db.trip = require("./trip.model.js")(database,DataTypes);
+db.seat = require("./seat.model.js")(database,DataTypes);
+db.stop = require("./stop.model.js")(database,DataTypes);
 
 module.exports = db;

@@ -25,12 +25,6 @@ module.exports = (database,DataTypes) => {
           type:DataTypes.DATE,
           allowNull : false
         },
-        stops: {
-          type: DataTypes.JSON
-        },
-        setsOffered: {
-          type: DataTypes.JSON 
-        },
         pricePerSeat: {
           type: DataTypes.FLOAT
         },
@@ -55,6 +49,10 @@ module.exports = (database,DataTypes) => {
         updatedAt: {
           type: DataTypes.DATE,
           defaultValue: DataTypes.NOW
+        },
+        status: {
+          type: DataTypes.ENUM('available', 'passed'),
+          allowNull:false,
         }
       });
 
