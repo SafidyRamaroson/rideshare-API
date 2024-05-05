@@ -28,9 +28,9 @@ authRouter.get("/register/facebook/callback",callbackFacebookRegister);
 authRouter.get("/logout",authController.logout);
 
 // forgot password 
-authRouter.post("/forgotPassword",passwordController.forgotPassword);
+authRouter.post("/forgot-password",passwordController.forgotPassword);
 
 // feat:reset password 
-authRouter.post("/resetPassword",passwordController.resetPassword);
+authRouter.post("/reset-password",passwordController.resetPassword);
 
 module.exports = authRouter ; 

@@ -5,7 +5,7 @@ const { authMiddleware } = require("../middlewares/auth");
 
 
 // udpateProfil of current user
-userRouter.post("/updateProfil/:UserID",userController.udpateProfil);
+userRouter.post("/profile/update/:UserID",userController.udpateProfile);
 
 // get profile of current user 
 userRouter.get("/profile",authMiddleware,userController.getProfil);
