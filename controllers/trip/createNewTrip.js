@@ -1,115 +1,72 @@
-const { FLOAT } = require("sequelize");
 const db = require("./../../models/index");
-const checkValidityProvince = require("./../../utils/trips/checkValidityProvince");
-const isEmpty = require("./../../utils/common/isEmpty");
-const typeOf = require("./../../utils/common/typeOf");
-const validateEmail = require("./../../utils/common/validateEmail");
+const parseNewTripData = require("../../validations/parseNewTrip");
+const parseStopsData = require("../../validations/parseStopsData");
+const parseSeatData = require("../../validations/parseSeatsData");
+
 // we limit the covoit inside of Madagascar but feature 
 // we consider the entiry world 
 
 // controller that handle the incomming request and response to the client
-const createNewTrip = async(req,res) => {
-    const { 
-        departureProvince,
-        departurePrecise,
-        destinationProvince,
-        destinationPrecise,
-        stops,
-        setsOffered,
-        pricePerSeat,
-        additionalNotes,
-        returnDatetime,
-        refundable,
-        oneWay,
-        email
-    } = req.body;
+const createTrip = async(req,res) => {
+    const { UserID } = req.params;
+    const { stops,seats,...tripData } = req.body;
 
-    // check if departureProvince and destination province are all valid
-    const departureProvinceValidated = checkValidityProvince(departureProvince);
-    const destinationProvinceValidated = checkValidityProvince(destinationProvince);
 
-    if(!departureProvinceValidated || !destinationProvinceValidated){
-        console.log("Province invalid");
-        return res.status(422).json({
-            message:"Province invalid"
-        });
+    for(const stop of stops){
+        const { success, error:errorStopData } = parseStopsData(stop);
+        if(!success) return res.status(400).json({error:errorStopData});
     }
 
-    // check if oneWay is a boolean 
-    if(typeOf(Boolean(oneWay)) !== "boolean" || typeOf(Boolean(refundable)) !== "boolean"){
-        console.log("OneWay or refundable must be a boolean");
-        return res.status(422).json({
-            message:"One way or refundable must be a boolean"
-        });
+    for(const seat of seats){
+        const { success, error:errorSeatData } = parseSeatData(seat);
+        if(!success) return res.status(400).json({error:errorSeatData});
     }
 
-    // departure precise or destination precise don't be an empty string
-    if(isEmpty(departurePrecise ?? "") || isEmpty(destinationPrecise ?? "")){
-        console.log("Departure or destination cannot be an empty string");
-        return res.status(422).json({
-            message:"Departure or destination precise cannot be an empty string"
-        });
-    }
-    
-    // check if stop is an object null is  or setOffered is null object
-    if (stops || Array.isArray(stops)) {
-        console.log(Array.isArray(stops));
-        return res.status(422).json({ message: "Invalid syntax of stop" });
-    }
-    
-    if(isEmpty(additionalNotes ?? "")){
-        console.log("AdditionalNotes cannot be an empty string");
-        return res
-        .status(422)
-        .json({
-            message:"AdditionalNotes cannot be an empty string"
-        });
-    }
-    
-    if(oneWay){
-        if(isEmpty(returnDatetime)){
-            console.log("Return Datetime is required if oneWay is true")
-            return res.status(422).json({
-                message:"Return Datetime is required if oneWay is true"
-            });
-        }
-    }
+    const { error:errorTripData,success } = parseNewTripData(tripData);
+    if(!success) return res.status(400).json({error:errorTripData});
 
-// validate email input
-    if(!validateEmail(email)){
-        console.log("Email invalid");
-        return res.status(422).json({message:"Email invalid"});
-    }
 
     // retrieve the DriverID by email 
+    // Il suffit d'utilser cookie or create header content 
+    // i.e à chaque requete , on a toujours le header ou une cookie qui 
+    // contient les informations sur le personne connecté 
     try {
-        const foundUser = await db.user.findOne({where:{email}});
+        const foundUser = await db.user.findOne({where:{UserID}});
         if(foundUser === null){
             console.log("User not found");
             return res.status(404).json({message:"User not found"});
         }
 
-        const DriverID = foundUser.UserID;
         
-        const newTrip = await db.trip.create({
-            departureProvince,
-            departurePrecise,
-            destinationProvince,
-            destinationPrecise,
-            stops:JSON.stringify(stops),
-            setsOffered:JSON.stringify(setsOffered),
-            pricePerSeat,
-            additionalNotes,
-            returnDatetime,
-            DriverID,
-            refundable,
-            oneWay,
-            createdAt:new Date(),
-        });
+        const tripDataWithDriverID = {DriverID:UserID,...tripData};
+        const tripCreated = await db.trip.create(tripDataWithDriverID);
+        
+        // get ID of Trip created
+        const tripID = await tripCreated.dataValues.TripID;
+
+        const stopsToCreateWithTripID = stops.map((stop)=> ({
+            name:stop.name,
+            dateTime:stop.dateTime,
+            location:stop.location,
+            TripID:tripID
+        }));
+
+        const seatsToCreateWithTripID = seats.map((seat)=> ({
+            seatType:seat.seatType,
+            numberOfSeats:seat.numberOfSeats,
+            TripID:tripID
+        }));
+        
+        try {
+            await db.stop.bulkCreate(stopsToCreateWithTripID);
+            await db.seat.bulkCreate(seatsToCreateWithTripID);
+        } catch (error) {
+            throw new Error(error);
+        }
 
         res.status(201).json({
             message:"New trip created successfully"
-        });
+        }); 
         
     } catch (error) {
         console.error("Error:"+error);
@@ -120,4 +77,4 @@ const createNewTrip = async(req,res) => {
 }
 
 
-module.exports = createNewTrip;
+module.exports = createTrip;

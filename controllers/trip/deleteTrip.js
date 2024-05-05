@@ -1,30 +1,28 @@
 const db = require("./../../models/index");
 
-
-const deleteTrip = async(req,res)=>{
+const deleteTrip = async (req, res) => {
     const { TripID } = req.params;
     
     try {
-
         const deletedTrip = await db.trip.destroy({
-            where:{
+            where: {
                 TripID
             }
         });
 
-        if(!deletedTrip){
-            return res.status(400).json({
-                message:`Trip with id ${TripID} don't exist in database`
+        if (!deletedTrip) {
+            return res.status(404).json({
+                error: `Trip with ID ${TripID} not found in the database`
             });
         }
         
-        res.status(204)
+        res.status(204).send();
     } catch (error) {
-        console.log("Error:"+error);
+        console.error("Error deleting trip:", error);
         res.status(500).json({
-            message:error
+            error: "Internal Server Error"
         });
     }
-}
+};
 
 module.exports = deleteTrip;

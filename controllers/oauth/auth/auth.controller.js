@@ -1,7 +1,7 @@
-const { parseLoginData } = require("../../../utils/user/parseData");
+const { parseLoginData } = require("./../../../validations/validation");
 const generateToken = require("../../../utils/user/generateToken");
-const bcrypt = require("bcryptjs");
 const db  = require("../../../models/index");
+const bcrypt = require("bcryptjs");
 const axios = require("axios");
 require("dotenv").config();
 
@@ -12,29 +12,25 @@ const REDIRECT_URI = 'http://localhost:5000/api/auth/facebook/callback';
 //login with email and password 
 const login = async(req,res) => {
     const { email, password } = req.body;
-    const parsedData = parseLoginData(req.body);
-        if(!parsedData.success){
-            const err = parsedData.error.issues.map((e) => ({ path: e.path[0], message: e.message })) 
-            return res.status(401).json([...err]);
-        }
+    const {error:errorInputData,success } = parseLoginData(req.body);
+
+        if(!success)return res.status(401).json(...errorInputData);
         
         const foundUser = await db.user.findOne({where:{email}});
         
-        if(!foundUser){
-            return res.status(400).json({message:"User not exist"});
-        }
+        if(!foundUser) return res.status(400).json({message:"User not found"});
         
         const isMatch = await bcrypt.compare(password, foundUser.password);
         
         if(!isMatch){
             return res.status(400).json({
                 message:"Incorrect Password"
-            })
+            });
         }else{  
             const token =  generateToken(foundUser);
             res.status(200).header("token",token).json({
                 token,
-            })
+            });
         }
 }
 
@@ -69,7 +65,6 @@ const callbackFacebookLogin = async(req,res)=> {
         // check if user is not registered in database 
         const foundUser  = await db.user.findOne({where:{facebookID}});
         if(!foundUser){
-            
            return  res.redirect('/signup');
         }
         

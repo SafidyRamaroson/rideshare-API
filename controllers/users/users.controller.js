@@ -8,14 +8,14 @@
 // AND  THEIR RENTED CARS
 // DELETE USER OR DRIVER ID
 // UPDATE INFO OF CURRENT USER 
-const udpateProfil = require("./updateProfile.controller");
+const updateProfile = require("./updateProfile.controller");
 const getProfil = require("./get.controller");
 const getProfilByUserID = require("./getUserByID.controller");
 const confirmDeleteAccount = require("./confirmAndDelete.controller");
 
 
 const userController = Object.freeze({
-    udpateProfil,
+    updateProfile,
     getProfil,
     getProfilByUserID,
     confirmDeleteAccount,

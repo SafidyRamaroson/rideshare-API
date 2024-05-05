@@ -1,3 +1,3 @@
-const typeOf = (value) => typeof value;
+const typeOf = (value) =>  typeof value;
 
 module.exports = typeOf;

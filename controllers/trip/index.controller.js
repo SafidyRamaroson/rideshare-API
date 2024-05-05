@@ -11,7 +11,7 @@
 const fetchAllTripDriver = require("./fetchAllTripCreatedByDriver");
 const createNewTrip = require("./createNewTrip");
 const fetchTripDetails = require("./fetchTripDetails");
-const deletedTrip = require('./deleteTrip');
+const deleteTrip = require('./deleteTrip');
 const updateTrip = require('./udpateTrip');
 const searchTrips = require("./searchTrips");
 

@@ -2,7 +2,7 @@ const hashPassword = require("../../utils/user/hashPassword");
 const db = require("./../../models/index");
 const bcrypt = require("bcryptjs");
 
-const udpateProfil = async(req,res)=>{
+const udpateProfile = async(req,res)=>{
     const UserID = req.params.UserID;
     const user = await db.user.findOne({where:{UserID}});
 
@@ -17,6 +17,6 @@ const udpateProfil = async(req,res)=>{
     .catch((err)=> console.error(err))
 }
 
-module.exports = udpateProfil;
+module.exports = udpateProfile;
 
 
