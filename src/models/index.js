@@ -36,5 +36,6 @@ db.reservation = require("./reservation.model.js")(database,DataTypes);
 db.user = require("./user.model.js")(database,DataTypes);
 db.trip = require("./trip.model.js")(database,DataTypes);
 db.stop = require("./stop.model.js")(database,DataTypes);
+db.save = require("./save.model.js")(database,DataTypes);
 
 module.exports = db;
