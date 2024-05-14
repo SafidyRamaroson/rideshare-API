@@ -1,10 +1,10 @@
 const availableProvince = [
-    "ANTANANARIVO",
-    "ANTSIRANANA",
-    "FIANARANTSOA",
-    "MAHAJANGA",
-    "TOAMASINA",
-    "TOLIARA",
+    "Antananarivo",
+    "Antsiranana",
+    "Fianarantsoa",
+    "Mahajanga",
+    "Toamasina",
+    "Toliara",
 ]
 
 module.exports = availableProvince;

@@ -7,16 +7,10 @@ const stopSchema = z.object({
     })
     .trim()
     .min(1,"Stop name cannot be empty"),
-    dateTime:z
-    .string({
-        required_error:"Datetime is required"
-    }),
-    location:
-    string({
-        required_error:"Location of a stop is required"
-    })
-    .trim()
-    .min(1,"Location stop cannot be empty")
+    price:z
+    .number({
+        required_error: "Price of each is required"
+    }).positive("Price of each Seat must be a positive number"),
 });
 
 module.exports = stopSchema;

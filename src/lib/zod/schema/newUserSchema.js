@@ -21,7 +21,7 @@ const newUserSchema = z.object({
         trim().
         min(1,"Email cannot be empty").
         email("Invalid email"),
-    gender:z.enum(["Mr","Md",""], {
+    gender:z.enum(["Mr","Md","not-specifie"], {
         errorMap:(issue,ctx)=>{
             return { message:"Invalid gender"}
         },
@@ -31,7 +31,6 @@ const newUserSchema = z.object({
         })
         .trim()
         .min(8,"Password must contains at least 8 characters"),
-    // unsubscribe:z.boolean("unsubscribe must be boolean"),
 });
 
 module.exports = newUserSchema;

@@ -1,4 +1,7 @@
 const db = require("../models/index");
+const { TRIP_NOT_FOUND } = require("../utils/error.message");
+const httpException = require("../utils/httpException");
+
 
 const seatsMiddleware = async(req,res,next) => {
     const { tripId } = req.params.tripId;
@@ -6,7 +9,7 @@ const seatsMiddleware = async(req,res,next) => {
     const trip = await db.trip.findByPk(tripId);
 
     if(!trip){
-        throw new Error("Trip not found");
+        throw new httpException(404,TRIP_NOT_FOUND);
     }
 
     if(trip.numberOfSeats >= numberOfSeats){

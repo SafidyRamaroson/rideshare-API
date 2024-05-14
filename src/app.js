@@ -16,24 +16,22 @@ app.use(cors(corsOptions));
 /*** DEFINE THE API ROUTE ***/
 app.use("/api",apiRoutes);
 
-app.use('/', (req,res)=>{
-    res.send('API IS WORKING')
-});
-
 
 /*** MANAGE ERROR IF ROUTE DOESN'T EXIST ***/
 app.use((req,res,next)=>{
     const error = new Error();
     error.message = "NOT FOUND"; 
-    error.status =  404
+    error.errorCode =  404
     next(error);
 });
 
 app.use((error, req, res, next) => {
-    const status = error.status || 500;
-    const errorMessage = error.message || 'Internal Server Error';
-    res.status(status).json({ error: errorMessage });
+    if(error && error.errorCode) {
+        res.status(error.errorCode).json(error.message);
+    } else if (error) {
+        res.status(500).json(error.message);
+    }
 });
-
-
+  
 module.exports = app;
+
