@@ -9,14 +9,12 @@ module.exports = (database,DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        dateTime: {
-            type: DataTypes.DATE,
-            allowNull: false
-        },
-        location: {
-            type: DataTypes.STRING,
-            allowNull: false
+        price: {
+            type: DataTypes.INTEGER,
+            allowNull:false
         }
+    },{
+        timestamps: false, 
     });
     
     Stop.belongsTo(require("./trip.model")(database,DataTypes), { foreignKey: 'tripId' });

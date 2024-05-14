@@ -16,7 +16,9 @@ module.exports = (database,DataTypes)=>{
         contact: {
           type:DataTypes.STRING
         }
-      });
+      },{
+        timestamps: false, 
+    });
       
     Reservation.belongsTo(require("./user.model")(database,DataTypes),{foreignKey:'userId'});
     Reservation.belongsTo(require("./trip.model")(database,DataTypes),{foreignKey:'tripId'});

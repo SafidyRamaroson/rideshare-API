@@ -34,6 +34,10 @@ module.exports = (database,DataTypes,)=>{
         nationalID: {
           type: DataTypes.STRING,
           unique:true
+        },
+        hasTripCreated:{
+          type: DataTypes.BOOLEAN,
+          defautlValue:false
         }
       },{
         timestamps: false, 

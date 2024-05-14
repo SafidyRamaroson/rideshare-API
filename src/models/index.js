@@ -27,15 +27,15 @@ db.databaseConf = database;
 db.dropRideShareTable = ()=>{
     db.databaseConf.sync({force:true})
     .then(()=>{
-        console.log('e-covoiture-ch table just dropped and db re-synced.');
+        console.log('Rideshare table just dropped and db re-synced.');
     });
 }
 
 db.SpecialSubscriber = require("./specialSubscriber.model.js")(database,DataTypes);
-db.reservation = require("./reservation.model.js")(database,DataTypes);
 db.user = require("./user.model.js")(database,DataTypes);
 db.trip = require("./trip.model.js")(database,DataTypes);
 db.stop = require("./stop.model.js")(database,DataTypes);
-db.save = require("./save.model.js")(database,DataTypes);
-
+db.reservation = require("./reservation.model.js")(database,DataTypes);
+db.archive = require("./archive.model.js")(database,DataTypes);
+db.reviews = require("./reviews.model.js")(database,DataTypes);
 module.exports = db;

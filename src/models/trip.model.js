@@ -21,8 +21,8 @@ module.exports = (database,DataTypes) => {
           type:DataTypes.STRING,
           allowNull:false
         },
-        dateOfDeparture : {
-          type:DataTypes.DATE,
+        departureTime : {
+          type:DataTypes.STRING,   // FORMAT TIME HH:MM AM or PM
           allowNull : false
         },
         additionalNotes: {
@@ -58,7 +58,8 @@ module.exports = (database,DataTypes) => {
         status: {
           type: DataTypes.ENUM('available', 'passed'),
           allowNull:false,
-        }
+        }},{
+          timestamps: false, 
       });
 
     Trip.belongsTo(require("./user.model")(database,DataTypes), { foreignKey: 'driverId' });    
