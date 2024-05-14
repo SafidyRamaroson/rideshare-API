@@ -1,6 +1,9 @@
+const { TRIP_UPDATE, TRIP_NOT_FOUND } = require('../../utils/error.message');
+const httpException = require('../../utils/httpException');
 const db = require('./../../models/index');
 
-const updateTrip = async (req, res) => {
+
+const updateTrip = async (req, res,next) => {
     const { tripId } = req.params;
     const { ...newValues } = req.body;
 
@@ -9,25 +12,19 @@ const updateTrip = async (req, res) => {
             where: { tripId }
         });
 
+
         if (updatedRowsCount > 0) {
             console.log(`Trip with id ${tripId} updated successfully.`);
             return res.status(200).json({
-                success: true,
-                message: `Trip with id ${tripId} updated successfully.`
+                message: TRIP_UPDATE
             });
         } else {
             console.log(`Trip with id ${tripId} not found.`);
-            return res.status(404).json({
-                success: false,
-                message: `Trip with id ${tripId} not found.`
-            });
+            return httpException(404,TRIP_NOT_FOUND);
         }
     } catch (error) {
         console.log("Error: ", error);
-        res.status(500).json({
-            success: false,
-            message: "Internal Server Error"
-        });
+        next(error);
     }
 };
 
