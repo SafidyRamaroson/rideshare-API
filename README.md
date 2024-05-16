@@ -17,7 +17,7 @@
 
 > 4 - Mise à jour profil.
 
-> 5 - Supprimer de compte après confirmation.
+> 5 - Supprimer le compte après confirmation.
 
 > 6 - Gestion de mot de passe (mot de passe oublie  et nouveau mot de passe ).
 
