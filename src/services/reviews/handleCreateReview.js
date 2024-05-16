@@ -1,6 +1,6 @@
 const db = require("../../models");
 const { USER_NOT_FOUND, TRIP_NOT_FOUND } = require("../../utils/error.message");
-const httpException = require("../../utils/httpException");
+const httpException = require("../../utils/handleError");
 
 const handleCreateOneReview = async(req)=>{
     const { tripId , userId } = req.params;

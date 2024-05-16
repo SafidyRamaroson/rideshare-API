@@ -1,6 +1,6 @@
 const db = require("../../models");
 const { ARCHIVE_NOT_FOUND } = require("../../utils/error.message");
-const httpException = require("../../utils/httpException");
+const httpException = require("../../utils/handleError");
 
 
 // verify save existance

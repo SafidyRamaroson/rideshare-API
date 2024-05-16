@@ -1,6 +1,6 @@
 const db = require("../../models");
 const { TRIP_NOT_FOUND } = require("../../utils/error.message");
-const { default: httpException } = require("../../utils/httpException");
+const { default: httpException } = require("../../utils/handleError");
 
 const handleDeleteTrip = async(tripId) => {
 

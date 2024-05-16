@@ -1,7 +1,7 @@
 const hashPassword = require("../../utils/hashPassword");
 const db = require("../../models/index");
 const { USER_NOT_FOUND, USER_PROFIL_UPDATED } = require("../../utils/error.message");
-const httpException = require("../../utils/httpException").default;
+const httpException = require("../../utils/handleError").default;
 
 
 const udpateUserProfile = async(userId,password,newProfile)=> {

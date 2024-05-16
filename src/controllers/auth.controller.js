@@ -1,18 +1,18 @@
 const db  = require("../models/index");
 const { getLoginDialogUrl, getProfileResponse, handleLogin } = require("../services/auth/auth.service");
-const httpException = require("../utils/httpException").default;
+const httpException = require("../utils/handleError").default;
 const { USER_NOT_FOUND } = require("../utils/error.message");
+const handleError = require("../utils/handleError");
 require("dotenv").config();
 
 
 
 //login with email and password 
-const login = async(req,res,next) => {
+const login = async(req,res) => {
     try {
-        await handleLogin(req?.body);
+       await handleLogin(req,res);
     } catch (error) {
-        console.log(error);
-        next(error);
+        handleError(res,error);
     }
 }
 

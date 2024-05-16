@@ -1,5 +1,5 @@
 const { TRIP_UPDATE, TRIP_NOT_FOUND } = require('../../utils/error.message');
-const httpException = require('../../utils/httpException');
+const httpException = require('../../utils/handleError');
 const db = require('./../../models/index');
 
 

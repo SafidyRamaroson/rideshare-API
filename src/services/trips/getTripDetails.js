@@ -1,5 +1,5 @@
 const db = require("../../models");
-const { default: httpException } = require("../../utils/httpException");
+const { default: httpException } = require("../../utils/handleError");
 
 
 const getTripDetails = async(tripId)=>{

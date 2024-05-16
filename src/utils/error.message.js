@@ -15,7 +15,7 @@ const errorMessage = Object.freeze({
     REQUIRED_RGISTER:"UnAuthorized , create an account",
     INVALID_TOKEN:"Invalid token",
     TOKEN_EXPIRED:"Token expired",
-    INCORRECT_PASSWORD:"Incorredt Password",
+    INCORRECT_PASSWORD:"Incorrect Password",
     REVIEW_CREATED:"Review created on the post Trip",
     REVIEW_LIST:"Reviews list on the one post trip",
     REVIEW_NOT_FOUND:"Review not found",

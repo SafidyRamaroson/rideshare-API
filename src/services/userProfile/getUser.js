@@ -1,5 +1,5 @@
 const { USER_NOT_FOUND } = require("../../utils/error.message");
-const httpException = require("../../utils/httpException").default;
+const httpException = require("../../utils/handleError").default;
 const db  = require("./../../models/index");
 
 

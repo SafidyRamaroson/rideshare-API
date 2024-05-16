@@ -1,7 +1,7 @@
 const zodSchema = require("../../lib/zod/schema");
 const db = require("../../models/index");
 const parseRequestData = require("../../validation");
-const httpException = require("./../../utils/httpException");
+const httpException = require("../../utils/handleError");
 
 
 const handleCreateTrip = async(userId,stops,tripData)=> {

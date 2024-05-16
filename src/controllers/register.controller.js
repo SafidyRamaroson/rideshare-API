@@ -1,15 +1,16 @@
 const db = require("../models/index");
 const { createUser, getLoginDialogUrl, getProfileResponse } = require("../services/auth/auth.service");
 const { USER_ALREADY_EXIST } = require("../utils/error.message");
+const handleError = require("../utils/handleError");
 require("dotenv").config();
 
 
-const register = async (req, res, next) => {
+const register = async (req, res) => {
     try {
-        const newUser = createUser(req?.body);
-        res.status(201).json({ userId : newUser?.userId });
+        const newUser = await createUser(req?.body);
+        res.status(201).json({ user: newUser });
     } catch (error) {
-        next(error)
+        handleError(res,error);
     }
 };
 

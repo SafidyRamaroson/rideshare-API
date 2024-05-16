@@ -1,10 +1,10 @@
 {
   "name": "backend_express_js_project_template",
   "version": "1.0.0",
-  "description": "e-covoiture-CH",
+  "description": "rideshare API",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon src/server.js"
   },
   "author": "Safidy RM",
   "license": "ISC",

@@ -1,6 +1,6 @@
 const db = require("../../models/user.model");
 const { USER_NOT_FOUND,REQUIRED_CONFIRMATION_DELETE_ACCOUNT } = require("../../utils/error.message");
-const httpException = require("../../utils/httpException");
+const httpException = require("../../utils/handleError");
 
 
 const deleteUser = async(userId,confirmed)=>{

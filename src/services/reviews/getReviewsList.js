@@ -1,6 +1,6 @@
 const db = require("../../models");
 const { TRIP_NOT_FOUND } = require("../../utils/error.message");
-const httpException = require("../../utils/httpException");
+const httpException = require("../../utils/handleError");
 
 const getReviewsList  = async(tripId)=> {
     const trip = await db.trip.findByPk(tripId);

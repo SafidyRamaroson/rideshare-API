@@ -1,5 +1,5 @@
 const db = require("../../models");
-const httpException = require("../../utils/httpException");
+const httpException = require("../../utils/handleError");
 
 const handleCreateOneArchive = async(userId,tripId)=>{
     const foundUser = await db.user.findByPk(userId);

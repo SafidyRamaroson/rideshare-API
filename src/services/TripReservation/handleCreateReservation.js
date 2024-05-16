@@ -1,5 +1,5 @@
 const db = require("../../models");
-const httpException = require("./../../utils/httpException");
+const httpException = require("../../utils/handleError");
 
 
 const handleCreateReservation = async() => {

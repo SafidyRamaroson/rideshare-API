@@ -11,7 +11,8 @@ const apiRoutes = require("./routes/api");
 /*** Use body parser middleware to parse body of incoming requests ***/
 app.use(bodyParser.urlencoded( { extended: false }));
 app.use(express.json());
-app.use(cors(corsOptions));
+app.use(cors());
+
 
 /*** DEFINE THE API ROUTE ***/
 app.use("/api",apiRoutes);
@@ -25,13 +26,7 @@ app.use((req,res,next)=>{
     next(error);
 });
 
-app.use((error, req, res, next) => {
-    if(error && error.errorCode) {
-        res.status(error.errorCode).json(error.message);
-    } else if (error) {
-        res.status(500).json(error.message);
-    }
-});
+
   
 module.exports = app;
 
