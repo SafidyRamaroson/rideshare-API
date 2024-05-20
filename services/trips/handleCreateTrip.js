@@ -38,4 +38,5 @@ const handleCreateTrip = async(req)=> {
 
 
 
+
 module.exports = handleCreateTrip; 
