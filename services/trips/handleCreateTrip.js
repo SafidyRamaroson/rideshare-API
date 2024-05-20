@@ -1,38 +1,41 @@
-const zodSchema = require("../../lib/zod/schema");
+const { returnType, departureType } = require("../../const/typeStop");
 const db = require("../../models/index");
-const parseRequestData = require("../../validation");
-const httpException = require("../../utils/handleError");
 
 
-const handleCreateTrip = async(userId,stops,tripData)=> {
+const handleCreateTrip = async(req)=> {
+    
+    const { trips:tripInfo,departureStops:departureStopsInfo,departureReturn:returnStopsInfo } = req.body;
+    const { userId } = req.params;
+    const { oneWay } = tripInfo;
+    
 
-    for(const stop of stops){
-        const { success, error:errorStopData } = parseRequestData(stop,zodSchema.stopSchema);
-        if(!success) throw new httpException(400,errorStopData);
-    }
-
-    const { error:errorTripData,success } = parseRequestData(tripData,zodSchema.newTripSchema);
-    if(!success) throw new httpException(400,errorTripData);
-
-
-    const foundUser = await db.user.findOne({where:{userId}});
-    if(foundUser === null){
-        throw new httpException(404,USER_NOT_FOUND);
-    }
-
-    const tripDataWithDriverId = {driverId:userId,...tripData};
+    const tripDataWithDriverId = {driverId:userId,...tripInfo};
     const tripCreated = await db.trip.create(tripDataWithDriverId);
-        
+
     // get ID of Trip created
     const tripId = await tripCreated.dataValues.tripId;
 
-    const stopsToCreateWithtripId = stops.map((stop)=> ({
-        name:stop.name,
-        price:stop.price,
-        tripId:tripId
+    const departureStopsInfoWithTripId = departureStopsInfo.map((departureStop)=> ({
+        location:departureStop.location,
+        price:departureStop.price,
+        tripId:tripId,
+        type:departureType
     }));
-    await db.stop.bulkCreate(stopsToCreateWithtripId);
+
+    const returnStopsInfoWithTripId = returnStopsInfo.map((returnStop)=> ({
+        location:returnStop.location,
+        price:returnStop.price,
+        tripId:tripId,
+        type:returnType
+    }));
+
+    await db.stop.bulkCreate(departureStopsInfoWithTripId);
+
+    if(!oneWay){
+        await db.stop.bulkCreate(returnStopsInfoWithTripId);
+    }
 }
+
 
 
 module.exports = handleCreateTrip; 

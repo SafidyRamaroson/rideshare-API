@@ -5,12 +5,16 @@ module.exports = (database,DataTypes) => {
             primaryKey: true,
             autoIncrement: true,
         },
-        name: {
+        location: {
             type: DataTypes.STRING,
             allowNull: false
         },
         price: {
             type: DataTypes.INTEGER,
+            allowNull:false
+        },
+        typeDepartureOrReturn:{
+            type:DataTypes.STRING,
             allowNull:false
         }
     },{

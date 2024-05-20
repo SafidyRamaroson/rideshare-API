@@ -7,6 +7,7 @@ const parseRequestData = require("../../validation");
 
 const createUser = async(userInfo)=>{
     const { email, password } = userInfo;
+    
     const { error:errorUserInfo, success } = parseRequestData(userInfo,zodSchema.newUserSchema);
     if (!success){
         throw new Error(errorUserInfo[0].message);
@@ -31,6 +32,7 @@ const createUser = async(userInfo)=>{
     // }
 
     const user = await db.user.create({ ...userInfo,password: hashedPassword });
+    // console.log(user);
     return user;    
 }
 

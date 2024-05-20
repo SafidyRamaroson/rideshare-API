@@ -22,30 +22,53 @@ module.exports = (database,DataTypes) => {
           allowNull:false
         },
         departureTime : {
-          type:DataTypes.STRING,   // FORMAT TIME HH:MM AM or PM
+          type:DataTypes.STRING, 
           allowNull : false
         },
-        additionalNotes: {
-          type: DataTypes.STRING,
+        departureDate : {
+          type:DataTypes.STRING,
           allowNull: false
         },
-        numberOfSeats:{
+        isComfort: {
+          type:DataTypes.BOOLEAN,
+          allowNull:false,
+        },
+        seats:{
           type: DataTypes.INTEGER,
           allowNull:false
         },
-        pricePerSeat: {
-          type: DataTypes.FLOAT,
-          allowNull:false
-        },
-        returnDatetime:{
-          type:DataTypes.DATE,
+        returnDate:{
+          type:DataTypes.DATEONLY,
           allowNull:true,
+        },
+        returnTime:{
+          type: DataTypes.TIME,
+          allowNull:true
         },
         refundable: {
           type: DataTypes.BOOLEAN
         },
         oneWay: {
-          type: DataTypes.BOOLEAN
+          type: DataTypes.BOOLEAN,
+          allowNull:false,
+        },
+        fixedPriceDeparture:{
+          type:DataTypes.BOOLEAN,
+        },
+        fixedPriceReturn: {
+          type:DataTypes.BOOLEAN
+        },
+        departurePrice:{
+          type:DataTypes.INTEGER,
+          allowNull:false
+        },
+        returnPrice:{
+          type:DataTypes.INTEGER,
+          allowNull:false
+        },
+        phoneNumber: {
+          type:DataTypes.STRING,
+          allowNull:false
         },
         createdAt: {
           type: DataTypes.DATE,
@@ -55,10 +78,7 @@ module.exports = (database,DataTypes) => {
           type: DataTypes.DATE,
           defaultValue: DataTypes.NOW
         },
-        status: {
-          type: DataTypes.ENUM('available', 'passed'),
-          allowNull:false,
-        }},{
+        },{
           timestamps: false, 
       });
 

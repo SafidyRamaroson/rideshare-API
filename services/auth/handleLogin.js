@@ -25,7 +25,7 @@ const handleLogin = async(req,res)=>{
             throw new Error(INCORRECT_PASSWORD)
         }else{  
             const token =  generateToken(foundUser);
-            res.status(200).send(token);
+            res.status(200).json({token:token});
         }
 }
 

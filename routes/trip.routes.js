@@ -11,7 +11,7 @@ const seatsMiddleware = require('../middlewares/seatsMiddleware');
 tripRouter.get("/driver",fetchAllTripDriver);
 
 // create new trip
-tripRouter.post("/create",seatsMiddleware,createTrip);
+tripRouter.post("/create/:userId",createTrip);
 
 // fetch trip details using tripId
 tripRouter.get("/:tripId/details",fetchTripDetails);

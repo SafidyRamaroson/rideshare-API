@@ -2,21 +2,27 @@ const getTripDetails = require("../services/trips/getTripDetails");
 const handleCreateTrip = require("../services/trips/handleCreateTrip");
 const { getTripsAvailableSearch, getAllTrips, getAllTripsCreatedByDriver, handleDeleteTrip } = require("../services/trips/trips.service");
 const { TRIP_CREATED } = require("../utils/error.message");
+const handleError = require("../utils/handleError");
+
 
 // TODO:verify input incomning
 // Create new Trip OK
 const createTrip = async(req,res,next) => {
-    const { userId } = req.params;
-    const { stops,...tripData } = req.body;
+
+
+    const { stops } = req.body;
+    console.log("Stops");
+    console.log(stops);
+    console.log("Body");
+    console.log(req.body);
 
     try {
-        await handleCreateTrip(userId,stops,tripData);
+        await handleCreateTrip(req);
         res.status(201).json({
             message:TRIP_CREATED
         }); 
     } catch (error) {
-        next(error);
-        console.log(error);
+        handleError(res,error);
     }
 }
 

@@ -12,6 +12,7 @@ authRouter.get("/register/facebook",redirectRegisterDialogFacebook);
 // login with email and password
 authRouter.post("/login",login);
 
+
 // Initiates the Facebook Login flow 
 authRouter.get("/facebook",redirectToLoginDialogFacebook);
 
