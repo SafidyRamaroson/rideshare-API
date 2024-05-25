@@ -1,25 +1,36 @@
+const { Sequelize } = require("sequelize");
 const db = require("../../models");
-const { default: httpException } = require("../../utils/handleError");
+const { TRIP_INVALID, TRIP_NOT_FOUND } = require("../../utils/error.message");
+const getFormattedTripWithStopData = require("./utils/getFormattedTripWithStopData");
 
 
 const getTripDetails = async(tripId)=>{
 
     if (!tripId || isNaN(Number(tripId))) {
-        throw new httpException(400,TRIP_INVALID);
+        throw new Error(TRIP_INVALID)
     }
 
-    const tripDetailsData = await db.trip.findOne({
+    const tripIncldudeStopData = await db.trip.findOne({
         where: { tripId },
-        attributes: { exclude: ["driverId", "updatedAt"] }
+        attributes: { exclude: ["updatedAt"] },
+        include: [{
+            model:db.stop,
+            where: {
+               tripId:Sequelize.col("Trip.tripId")
+            },
+        }],
     });
-     
-    if (!tripDetailsData) {
+
+    if (!tripIncldudeStopData) {
         console.log(`Trip with ${tripId} does not exist in the database`);
-        throw new httpException(400,TRIP_NOT_FOUND);
+        throw new Error(TRIP_NOT_FOUND)
     }
 
-    return tripDetailsData;
-
+    const formattedTripIncludeStopData = getFormattedTripWithStopData(tripIncldudeStopData)
+    
+    return formattedTripIncludeStopData;
 }
+
+
 
 module.exports = getTripDetails;

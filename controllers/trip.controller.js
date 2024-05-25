@@ -78,15 +78,14 @@ const fetchAllTripDriver = async(req,res)=>{
 
 
 // get trips Details
-const fetchTripDetails = async(req,res,next)=>{
-    const { tripId } = req.params;
+const fetchTripDetails = async(req,res)=>{
+    const { tripId } = req.params
     
     try {
-        const tripDetails  = await getTripDetails(tripId);
-        res.status(200).send(tripDetails);
+        const tripDetails  = await getTripDetails(tripId)
+        res.status(200).send(tripDetails)
     } catch (error) {
-        console.log(error);
-        next(error);
+        handleError(res,error)
     }
 }
 
