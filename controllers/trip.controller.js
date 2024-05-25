@@ -2,42 +2,48 @@ const getTripDetails = require("../services/trips/getTripDetails");
 const handleCreateTrip = require("../services/trips/handleCreateTrip");
 const { getTripsAvailableSearch, getAllTrips, getAllTripsCreatedByDriver, handleDeleteTrip } = require("../services/trips/trips.service");
 const { TRIP_CREATED } = require("../utils/error.message");
+const getFormatDate = require("../utils/getFormatDate");
 const handleError = require("../utils/handleError");
 
 
 // TODO:verify input incomning
 // Create new Trip OK
-const createTrip = async(req,res,next) => {
-
-
-    const { stops } = req.body;
-    console.log("Stops");
-    console.log(stops);
-    console.log("Body");
-    console.log(req.body);
-
+const createTrip = async(req,res) => {
     try {
         await handleCreateTrip(req);
         res.status(201).json({
             message:TRIP_CREATED
-        }); 
+        });
+        console.log(TRIP_CREATED);
     } catch (error) {
         handleError(res,error);
     }
 }
 
-
 // search all trips OK
-const searchTrips = async (req, res,next) => {
-    const { page } = req.query;
-    const size = 6; // number of rows to send to client 
+const searchTrips = async(req, res,next) => {
+    const { page } = req.params;
+    console.log("page query");
+    console.log(page);
+    const size = 2; // number of rows to send to client 
+
+    const searchCriteria = {
+        ...req.body,
+        // dateOfDeparture:getFormatDate(req.body.dateOfDeparture),
+        // returnOfDate:getFormatDate(req.body.returnOfDate)
+        dateOfDeparture:req.body.departureDate,
+        returnOfDate:req.body.returnDate
+    }
     
     try {
         // Chercher le nombre de places disponibles pour chaque voyage (si nécessaire)
-        const tripsAvailable = getTripsAvailableSearch(page,size,req?.body);
+        const tripsAvailable = await getTripsAvailableSearch(page,size,searchCriteria);
+        // console.log("trips");
+        // console.log(tripsAvailable);
+        
         res.status(200).send(tripsAvailable);
     } catch (error) {
-        next(error);
+        handleError(res,error);
     }
 };
 
@@ -47,7 +53,7 @@ const searchTrips = async (req, res,next) => {
 const fetchAllTrips = async(req ,res,next)=> {
 
     const { page } = req.query;
-    const size  = 6;
+    const size  = 2;
     try{
         const allTrips =await getAllTrips(page,size);
         res.status(200).send(allTrips);

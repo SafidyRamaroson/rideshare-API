@@ -1,33 +1,85 @@
+
 const { returnType, departureType } = require("../../const/typeStop");
 const db = require("../../models/index");
 
 
 const handleCreateTrip = async(req)=> {
     
-    const { trips:tripInfo,departureStops:departureStopsInfo,departureReturn:returnStopsInfo } = req.body;
+    console.log("Trip Body");
+    console.log(req.body);
+    const { oneWay,departureStops,returnStops} = req.body;
     const { userId } = req.params;
-    const { oneWay } = tripInfo;
+    const { 
+        departureProvince,
+        departurePrecise,
+        destinationProvince,
+        destinationPrecise,
+        departureDate,
+        departureTime,
+        isComfort,
+        seats,
+        departurePrice,
+        fixedDeparturePrice,
+        returnDate,
+        returnTime,
+        returnPrice,
+        fixedReturnPrice,
+        phoneNumber
+     } = req.body;
+
+    console.log(userId);
     
+    const tripInfo = {
+        departureProvince,
+        departurePrecise,
+        destinationProvince,
+        destinationPrecise,
+        departureDate,
+        departureTime,
+        isComfort,
+        seats,
+        departurePrice,
+        fixedPriceDeparture:fixedDeparturePrice,
+        returnDate,
+        returnTime,
+        returnPrice,
+        fixedPriceReturn:fixedReturnPrice,
+        phoneNumber,
+        oneWay,
+    }
+    
+    const userExists = await db.user.findByPk(userId);
+    if (!userExists) {
+        throw new Error("Invalid driverId, user does not exist");
+    }
 
     const tripDataWithDriverId = {driverId:userId,...tripInfo};
     const tripCreated = await db.trip.create(tripDataWithDriverId);
 
-    // get ID of Trip created
     const tripId = await tripCreated.dataValues.tripId;
+    
 
-    const departureStopsInfoWithTripId = departureStopsInfo.map((departureStop)=> ({
-        location:departureStop.location,
-        price:departureStop.price,
-        tripId:tripId,
-        type:departureType
-    }));
+    const departureStopsInfoWithTripId = departureStops.map((departureStop)=> {
+        if(departureStop.checked){
+            return {
+                location:departureStop.location,
+                price:departureStop.price,
+                tripId:tripId,
+                typeDepartureOrReturn:departureType
+            }
+        }
+    });
 
-    const returnStopsInfoWithTripId = returnStopsInfo.map((returnStop)=> ({
-        location:returnStop.location,
-        price:returnStop.price,
-        tripId:tripId,
-        type:returnType
-    }));
+    const returnStopsInfoWithTripId = returnStops.map((returnStop)=> {
+        if(returnStop.checked){
+            return {
+                location:returnStop.location,
+                price:returnStop.price,
+                tripId:tripId,
+                typeDepartureOrReturn:returnType
+            }
+        }
+    });
 
     await db.stop.bulkCreate(departureStopsInfoWithTripId);
 
@@ -35,8 +87,6 @@ const handleCreateTrip = async(req)=> {
         await db.stop.bulkCreate(returnStopsInfoWithTripId);
     }
 }
-
-
 
 
 module.exports = handleCreateTrip; 

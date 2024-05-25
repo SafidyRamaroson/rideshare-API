@@ -23,7 +23,7 @@ tripRouter.delete("/:tripId",deleteTrip);
 tripRouter.put("/:tripId",updateTrip);
 
 // fetch all trip
-tripRouter.get("/search",searchTrips);
+tripRouter.post("/search/:page",searchTrips);
 
 
 module.exports = tripRouter;

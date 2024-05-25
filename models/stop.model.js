@@ -21,7 +21,7 @@ module.exports = (database,DataTypes) => {
         timestamps: false, 
     });
     
-    Stop.belongsTo(require("./trip.model")(database,DataTypes), { foreignKey: 'tripId' });
+    // Stop.belongsTo(require("./trip.model")(database,DataTypes), { foreignKey: 'tripId' });
 
     return Stop;
 }

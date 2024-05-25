@@ -38,16 +38,16 @@ module.exports = (database,DataTypes) => {
           allowNull:false
         },
         returnDate:{
-          type:DataTypes.DATEONLY,
+          type:DataTypes.STRING,
           allowNull:true,
         },
         returnTime:{
-          type: DataTypes.TIME,
+          type: DataTypes.STRING,
           allowNull:true
         },
-        refundable: {
-          type: DataTypes.BOOLEAN
-        },
+        // refundable: {
+        //   type: DataTypes.BOOLEAN
+        // },
         oneWay: {
           type: DataTypes.BOOLEAN,
           allowNull:false,
@@ -82,6 +82,8 @@ module.exports = (database,DataTypes) => {
           timestamps: false, 
       });
 
-    Trip.belongsTo(require("./user.model")(database,DataTypes), { foreignKey: 'driverId' });    
+    Trip.belongsTo(require("./user.model")(database,DataTypes), { foreignKey: 'driverId' });  
+    Trip.hasMany(require("./stop.model")(database,DataTypes),  { foreignKey: 'tripId'})
+    
     return Trip ;
 }
