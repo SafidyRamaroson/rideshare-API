@@ -1,3 +1,4 @@
+const getSixRecentTrips = require("../services/trips/getSixRecentTrips");
 const getTripDetails = require("../services/trips/getTripDetails");
 const handleCreateTrip = require("../services/trips/handleCreateTrip");
 const { getTripsAvailableSearch, getAllTrips, getAllTripsCreatedByDriver, handleDeleteTrip } = require("../services/trips/trips.service");
@@ -9,6 +10,8 @@ const handleError = require("../utils/handleError");
 // TODO:verify input incomning
 // Create new Trip OK
 const createTrip = async(req,res) => {
+
+    console.log(req.body);
     try {
         await handleCreateTrip(req);
         res.status(201).json({
@@ -25,19 +28,11 @@ const searchTrips = async(req, res,next) => {
     const { page } = req.params;
     console.log("page query");
     console.log(page);
-    const size = 2; // number of rows to send to client 
+    const size = 4; // number of rows to send to client 
 
-    const searchCriteria = {
-        ...req.body,
-        // dateOfDeparture:getFormatDate(req.body.dateOfDeparture),
-        // returnOfDate:getFormatDate(req.body.returnOfDate)
-        dateOfDeparture:req.body.departureDate,
-        returnOfDate:req.body.returnDate
-    }
-    
     try {
         // Chercher le nombre de places disponibles pour chaque voyage (si nécessaire)
-        const tripsAvailable = await getTripsAvailableSearch(page,size,searchCriteria);
+        const tripsAvailable = await getTripsAvailableSearch(page,size,req);
         // console.log("trips");
         // console.log(tripsAvailable);
         
@@ -48,12 +43,23 @@ const searchTrips = async(req, res,next) => {
 };
 
 
+// get six recents trips
+const sixRecentTrips = async(req,res) => {
+    try {
+        const recentsTrips = await getSixRecentTrips();
+        res.status(200).send(recentsTrips)
+    } catch (error) {
+        handleError(res,error)
+    }
+}
+
+
 // pagination de trip
 // fetch all trip those are availble
 const fetchAllTrips = async(req ,res,next)=> {
 
     const { page } = req.query;
-    const size  = 2;
+    const size  = 4;
     try{
         const allTrips =await getAllTrips(page,size);
         res.status(200).send(allTrips);
@@ -107,4 +113,5 @@ module.exports = {
     fetchAllTripDriver,
     fetchTripDetails,
     deleteTrip,
+    sixRecentTrips,
 }

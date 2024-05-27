@@ -13,8 +13,5 @@ module.exports = (database,DataTypes) => {
             timestamps: false, 
     });
     
-    Archive.belongsTo(require("./trip.model")(database,DataTypes), { foreignKey: 'tripId' });
-    Archive.belongsTo(require("./user.model")(database,DataTypes), { foreignKey: 'userId' });
-
     return Archive;
 }

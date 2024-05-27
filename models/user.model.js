@@ -45,3 +45,6 @@ module.exports = (database,DataTypes,)=>{
     return User; 
 }
 
+
+
+

@@ -38,4 +38,17 @@ db.stop = require("./stop.model.js")(database,DataTypes);
 db.reservation = require("./reservation.model.js")(database,DataTypes);
 db.archive = require("./archive.model.js")(database,DataTypes);
 db.reviews = require("./reviews.model.js")(database,DataTypes);
+
+// define associations
+db.archive.belongsTo(db.trip, { foreignKey: 'tripId' });
+db.archive.belongsTo(db.user, { foreignKey: 'userId' });
+db.reservation.belongsTo(db.user,{foreignKey:'userId'});
+db.reservation.belongsTo(db.trip,{foreignKey:'tripId'});
+db.reviews.belongsTo(db.trip, { foreignKey: 'tripId' });
+db.reviews.belongsTo(db.user, { foreignKey: 'userId' });
+db.stop.belongsTo(db.trip, { foreignKey: 'tripId' });
+db.trip.belongsTo(db.user, { foreignKey: 'driverId' });
+db.trip.hasMany(db.stop, { foreignKey: 'tripId' });
+
+
 module.exports = db;

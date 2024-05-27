@@ -30,7 +30,7 @@ const getFormattedTripWithStopData = async(tripIncldudeStopData) => {
         fixedPriceDeparture:tripIncldudeStopData.fixedPriceDeparture,
         fixedPriceReturn:tripIncldudeStopData.fixedPriceReturn,
         departurePrice:tripIncldudeStopData.departurePrice,
-        returnPrice:tripIncldudeStopData.returnPrice,
+        returnPrice:tripIncldudeStopData?.returnPrice,
         phoneNumber:tripIncldudeStopData.phoneNumber,
         createdAt:tripIncldudeStopData.createdAt,
     }

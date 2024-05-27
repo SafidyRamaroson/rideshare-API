@@ -45,9 +45,6 @@ module.exports = (database,DataTypes) => {
           type: DataTypes.STRING,
           allowNull:true
         },
-        // refundable: {
-        //   type: DataTypes.BOOLEAN
-        // },
         oneWay: {
           type: DataTypes.BOOLEAN,
           allowNull:false,
@@ -64,7 +61,6 @@ module.exports = (database,DataTypes) => {
         },
         returnPrice:{
           type:DataTypes.INTEGER,
-          allowNull:false
         },
         phoneNumber: {
           type:DataTypes.STRING,
@@ -81,9 +77,5 @@ module.exports = (database,DataTypes) => {
         },{
           timestamps: false, 
       });
-
-    Trip.belongsTo(require("./user.model")(database,DataTypes), { foreignKey: 'driverId' });  
-    Trip.hasMany(require("./stop.model")(database,DataTypes),  { foreignKey: 'tripId'})
-    
     return Trip ;
 }

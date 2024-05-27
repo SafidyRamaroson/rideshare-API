@@ -14,10 +14,8 @@ const getTripDetails = async(tripId)=>{
         where: { tripId },
         attributes: { exclude: ["updatedAt"] },
         include: [{
-            model:db.stop,
-            where: {
-               tripId:Sequelize.col("Trip.tripId")
-            },
+            model: db.stop,
+            required: false, 
         }],
     });
 

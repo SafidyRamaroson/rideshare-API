@@ -2,7 +2,7 @@ const express = require('express');
 const tripRouter = express.Router();
 // const tripController = require("./../controllers/trip/index.controller");
 // const checkDisponibilitySeatsMiddleware = require("./../middlewares/checkDisponibilitySeats");
-const { createTrip, fetchAllTripDriver, fetchTripDetails, deleteTrip, searchTrips } = require('../controllers/trip.controller');
+const { createTrip, fetchAllTripDriver, fetchTripDetails, deleteTrip, searchTrips, sixRecentTrips } = require('../controllers/trip.controller');
 const updateTrip = require('../controllers/trip/udpateTrip');
 const seatsMiddleware = require('../middlewares/seatsMiddleware');
 
@@ -17,13 +17,16 @@ tripRouter.post("/create/:userId",createTrip);
 tripRouter.get("/:tripId/details",fetchTripDetails);
 
 // delete one trip
-tripRouter.delete("/:tripId",deleteTrip);
+tripRouter.delete("/:tripId",deleteTrip)
 
 // update trip
-tripRouter.put("/:tripId",updateTrip);
+tripRouter.put("/:tripId",updateTrip)
 
 // fetch all trip
-tripRouter.post("/search/:page",searchTrips);
+tripRouter.post("/search/:page",searchTrips)
+
+// get six recents trips
+tripRouter.get("/recents",sixRecentTrips)
 
 
 module.exports = tripRouter;
