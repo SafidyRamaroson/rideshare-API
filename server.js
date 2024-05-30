@@ -17,8 +17,7 @@ server.listen(PORT, ()=>{
 });
 
 
-
-// db.databaseConf.sync();
+db.databaseConf.sync();
 // generateRandomUser(100);
 // db.dropRideShareTable();
 
