@@ -16,9 +16,8 @@ server.listen(PORT, ()=>{
     console.log(`Server is running on  http://localhost:${PORT}`);
 });
 
-
-db.databaseConf.sync();
-// generateRandomUser(100);
+// db.databaseConf.sync();
+generateRandomUser(100);
 // db.dropRideShareTable();
 
 
