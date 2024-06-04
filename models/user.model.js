@@ -2,7 +2,7 @@
 
 /*** GENERAL USER SCHEMA ***/
 module.exports = (database,DataTypes,)=>{
-    const User= database.define('User',{
+    const User= database.define('user',{
         userId: {
           type: DataTypes.INTEGER,
           primaryKey: true,

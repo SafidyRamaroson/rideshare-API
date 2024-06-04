@@ -1,5 +1,5 @@
 module.exports = (database,DataTypes) => {
-    const Trip = database.define('Trip', {
+    const Trip = database.define('trip', {
         tripId: {
           type: DataTypes.INTEGER,
           primaryKey: true,

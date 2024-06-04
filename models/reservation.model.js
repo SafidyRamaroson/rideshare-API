@@ -1,5 +1,5 @@
 module.exports = (database,DataTypes)=>{
-    const Reservation = database.define('Reservation', {
+    const Reservation = database.define('reservation', {
         reservationId: {
           type: DataTypes.INTEGER,
           primaryKey: true,
@@ -19,9 +19,9 @@ module.exports = (database,DataTypes)=>{
       },{
         timestamps: false, 
     });
-      
-    Reservation.belongsTo(require("./user.model")(database,DataTypes),{foreignKey:'userId'});
-    Reservation.belongsTo(require("./trip.model")(database,DataTypes),{foreignKey:'tripId'});
 
     return Reservation;   
 }
+
+
+

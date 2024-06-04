@@ -1,5 +1,5 @@
 module.exports = (database,DataTypes) => {
-    const Archive = database.define('Archive', {
+    const Archive = database.define('archive', {
         archiveId: {
             type: DataTypes.INTEGER,
             primaryKey: true,

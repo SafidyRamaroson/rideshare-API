@@ -1,5 +1,5 @@
 module.exports = (database,DataTypes) => {
-    const Stop = database.define('Stop', {
+    const Stop = database.define('stop', {
         stopId: {
             type: DataTypes.INTEGER,
             primaryKey: true,
