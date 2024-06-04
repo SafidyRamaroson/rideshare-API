@@ -2,6 +2,11 @@
 const getStopsByType = (stops,type) => {
 
     const stopsByType = []
+
+    if (!Array.isArray(stops)) {
+        return stopsByType
+    }
+
     for(const stop of stops){
         if(stop.dataValues.typeDepartureOrReturn === type){
             stopsByType.push({
