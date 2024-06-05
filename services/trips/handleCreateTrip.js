@@ -73,6 +73,16 @@ const handleCreateTrip = async (req) => {
   if (oneWay) {
     await db.stop.bulkCreate(returnStopsInfoWithTripId);
   }
+  
+  await updateUserAfterTripIsCreated()
 };
+
+
+const updateUserAfterTripIsCreated = async()=>{
+  await db.user.update(
+    {hasTripCreated:true},
+    {where:userId}
+  )
+}
 
 module.exports = handleCreateTrip;
