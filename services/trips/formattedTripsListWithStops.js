@@ -10,8 +10,7 @@ const getFormattedTripsListWithStops = async(tripsListData) => {
 
     for(const tripData of tripsListData){
       const  currentTripId = tripData?.tripId
-      const stopsAssociatedWithTripId = getAssociatedStopOfTripId(currentTripId)
-
+      const stopsAssociatedWithTripId = await  getAssociatedStopOfTripId(currentTripId)
       const tripWithStop = {
         tripData,
         Stops:stopsAssociatedWithTripId ?? []
