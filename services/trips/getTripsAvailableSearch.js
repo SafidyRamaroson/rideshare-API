@@ -52,7 +52,7 @@ const getTripsAvailableSearch = async(page,size,req)=> {
     const formattedTripsListWithStops = await  getFormattedTripsListWithStops(tripsListData)
     return {
         trips:formattedTripsListWithStops,
-        totalPages:(Math.ceil(countTripsAvailble/size)== 0 && countTripsAvailble == 0) ? 0:Math.ceil(countTripsAvailble/size),
+        totalPages:(Math.ceil(countTripsAvailble/size)== 0 && countTripsAvailble == 0) ? 0:Math.ceil(countTripsAvailble/size)- 1,
         totalItems:countTripsAvailble,
     }
 }
