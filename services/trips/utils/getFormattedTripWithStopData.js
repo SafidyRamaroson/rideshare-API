@@ -5,34 +5,37 @@ const getStopsByType = require("./getStopsByType");
 
 const getFormattedTripWithStopData = async(tripIncldudeStopData) => {
     
-    const { Stops,driverId } = tripIncldudeStopData
+    const { Stops,tripData } = tripIncldudeStopData
+    const { driverId } = tripData
+    
     const authorTrip = await db.user.findByPk(driverId,{attributes: {
         exclude: ["userId"]
-    },});
+    },});           
+
     const currentReturnStops  = getStopsByType(Stops,stopTypes.returnType)
     const currentDepartureStops = getStopsByType(Stops,stopTypes.departureType)
 
     const tripInfo = {
         author:authorTrip,
-        tripId:tripIncldudeStopData.tripId,
-        departureTime:tripIncldudeStopData.departureTime,
-        departureProvince:tripIncldudeStopData.departureProvince,
-        departurePrecise:tripIncldudeStopData.departurePrecise,
-        destinationProvince:tripIncldudeStopData.destinationProvince,
-        destinationPrecise:tripIncldudeStopData.destinationPrecise,
-        departureTime:tripIncldudeStopData.departureTime,
-        departureDate:tripIncldudeStopData.departureDate,
-        isComfort:tripIncldudeStopData.isComfort,
-        seats:tripIncldudeStopData.seats,
-        returnDate:tripIncldudeStopData.returnDate,
-        returnTime:tripIncldudeStopData.returnTime,
-        oneWay:tripIncldudeStopData.oneWay,
-        fixedPriceDeparture:tripIncldudeStopData.fixedPriceDeparture,
-        fixedPriceReturn:tripIncldudeStopData.fixedPriceReturn,
-        departurePrice:tripIncldudeStopData.departurePrice,
-        returnPrice:tripIncldudeStopData?.returnPrice,
-        phoneNumber:tripIncldudeStopData.phoneNumber,
-        createdAt:tripIncldudeStopData.createdAt,
+        tripId:tripData.tripId,
+        departureTime:tripData.departureTime,
+        departureProvince:tripData.departureProvince,
+        departurePrecise:tripData.departurePrecise,
+        destinationProvince:tripData.destinationProvince,
+        destinationPrecise:tripData.destinationPrecise,
+        departureTime:tripData.departureTime,
+        departureDate:tripData.departureDate,
+        isComfort:tripData.isComfort,
+        seats:tripData.seats,
+        returnDate:tripData.returnDate,
+        returnTime:tripData.returnTime,
+        oneWay:tripData.oneWay,
+        fixedPriceDeparture:tripData.fixedPriceDeparture,
+        fixedPriceReturn:tripData.fixedPriceReturn,
+        departurePrice:tripData.departurePrice,
+        returnPrice:tripData?.returnPrice,
+        phoneNumber:tripData.phoneNumber,
+        createdAt:tripData.createdAt,
     }
 
      return {
