@@ -74,14 +74,14 @@ const handleCreateTrip = async (req) => {
     await db.stop.bulkCreate(returnStopsInfoWithTripId);
   }
   
-  await updateUserAfterTripIsCreated()
+  await updateUserAfterTripIsCreated(userId)
 };
 
 
-const updateUserAfterTripIsCreated = async()=>{
+const updateUserAfterTripIsCreated = async(id)=>{
   await db.user.update(
     {hasTripCreated:true},
-    {where:userId}
+    {where:{userId:id}}
   )
 }
 
