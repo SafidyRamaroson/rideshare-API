@@ -1,18 +1,16 @@
-const hashPassword = require("../../utils/hashPassword");
+
 const db = require("../../models/index");
-const { USER_NOT_FOUND, USER_PROFIL_UPDATED } = require("../../utils/error.message");
-const httpException = require("../../utils/handleError").default;
+const { USER_NOT_FOUND } = require("../../utils/error.message");
 
-
-const udpateUserProfile = async(userId,password,newProfile)=> {
+const udpateUserProfile = async(userId,newProfile)=> {
     const user = await db.user.findOne({where:{userId}});
-        if(!user) throw new httpException(400,USER_NOT_FOUND);
+        if(!user){
+            throw new Error(USER_NOT_FOUND)
+        }
 
-        const hashedPassword = await hashPassword(password);
         await db.user.update(
             {
                 ...newProfile,
-                password:hashedPassword
             },
             {
                 where:{

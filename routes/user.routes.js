@@ -4,7 +4,7 @@ const profilController = require("../controllers/profile.controller");
 const authMiddleware = require("../middlewares/auth");
 
 // udpateProfil of current user
-userRouter.post("/profile/update/:userId",profilController.updateUserProfile);
+userRouter.post("/profile/:userId/update",profilController.updateUserProfile);
 
 // get profile 
 userRouter.get("/profile/:userId",authMiddleware,profilController.getUserProfile);
