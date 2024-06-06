@@ -38,7 +38,11 @@ module.exports = (database,DataTypes,)=>{
         hasTripCreated:{
           type: DataTypes.BOOLEAN,
           defautlValue:false
-        }
+        },
+        profilUrl :{
+          type:DataTypes.STRING,
+          defautlValue:""
+        },
       },{
         timestamps: false, 
     });
