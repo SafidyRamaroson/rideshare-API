@@ -47,8 +47,7 @@ const fetchRecentTrips = async(req,res) => {
 
     const { limit } = req.query
     try {
-        const recentsTrips = await getRecentTrips(Number(limit));
-        conosole.log(recentsTrips)
+        const recentsTrips = await getRecentTrips(Number(limit))
         res
         .status(200)
         .send(recentsTrips)
