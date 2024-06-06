@@ -26,7 +26,7 @@ tripRouter.put("/:tripId",updateTrip)
 tripRouter.post("/search/:page",searchTrips)
 
 // get six recents trips
-tripRouter.get("/recents?limit=limit",fetchRecentTrips)
+tripRouter.get("/recents",fetchRecentTrips)
 
 
 module.exports = tripRouter;
