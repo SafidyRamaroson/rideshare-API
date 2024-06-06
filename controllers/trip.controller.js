@@ -46,8 +46,10 @@ const searchTrips = async(req, res,next) => {
 const fetchRecentTrips = async(req,res) => {
 
     const { limit } = req.query
+    console.log("limit",limit)
     try {
         const recentsTrips = await getRecentTrips(Number(limit));
+        conosole.log(recentsTrips)
         res
         .status(200)
         .send(recentsTrips)
