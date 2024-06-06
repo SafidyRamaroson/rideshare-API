@@ -1,9 +1,8 @@
-const getSixRecentTrips = require("../services/trips/getSixRecentTrips");
+const getRecentTrips = require("../services/trips/getRecentTrips");
 const getTripDetails = require("../services/trips/getTripDetails");
 const handleCreateTrip = require("../services/trips/handleCreateTrip");
 const { getTripsAvailableSearch, getAllTrips, getAllTripsCreatedByDriver, handleDeleteTrip } = require("../services/trips/trips.service");
 const { TRIP_CREATED } = require("../utils/error.message");
-const getFormatDate = require("../utils/getFormatDate");
 const handleError = require("../utils/handleError");
 
 
@@ -44,10 +43,14 @@ const searchTrips = async(req, res,next) => {
 
 
 // get six recents trips
-const sixRecentTrips = async(req,res) => {
+const fetchRecentTrips = async(req,res) => {
+
+    const { limit } = req.query
     try {
-        const recentsTrips = await getSixRecentTrips();
-        res.status(200).send(recentsTrips)
+        const recentsTrips = await getRecentTrips(Number(limit));
+        res
+        .status(200)
+        .send(recentsTrips)
     } catch (error) {
         handleError(res,error)
     }
@@ -113,5 +116,5 @@ module.exports = {
     fetchAllTripDriver,
     fetchTripDetails,
     deleteTrip,
-    sixRecentTrips,
+    fetchRecentTrips,
 }
