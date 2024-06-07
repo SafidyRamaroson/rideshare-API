@@ -1,11 +1,11 @@
-const { USER_PROFIL_UPDATED, USER_DELETED } = require("../utils/error.message");
+const { USER_DELETED } = require("../utils/error.message");
 const { 
     deleteUser ,
     getUserProfilByUserId ,
     udpateUserProfile,
 } = require("../services/userProfile/userProfile.service");
 const handleError = require("../utils/handleError");
-
+const db = require("../models");
 
 
 // confirm and delete account OK
