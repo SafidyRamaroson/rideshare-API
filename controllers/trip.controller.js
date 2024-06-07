@@ -57,8 +57,6 @@ const fetchRecentTrips = async(req,res) => {
 }
 
 
-// pagination de trip
-// fetch all trip those are availble
 const fetchAllTrips = async(req ,res,next)=> {
 
     const { page } = req.query;
