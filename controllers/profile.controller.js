@@ -6,6 +6,7 @@ const {
 } = require("../services/userProfile/userProfile.service");
 const handleError = require("../utils/handleError");
 const db = require("../models");
+const generateToken = require("../utils/generateToken");
 
 
 // confirm and delete account OK
