@@ -1,7 +1,6 @@
-const { Sequelize } = require("sequelize");
 const db = require("../../models");
 const { TRIP_INVALID, TRIP_NOT_FOUND } = require("../../utils/error.message");
-const getFormattedTripWithStopData = require("./utils/getFormattedTripWithStopData");
+const getFormattedTripsListWithStops = require("./formattedTripsListWithStops");
 
 
 const getTripDetails = async(tripId)=>{
@@ -20,11 +19,11 @@ const getTripDetails = async(tripId)=>{
     });
 
     if (!tripIncldudeStopData) {
-        console.log(`Trip with ${tripId} does not exist in the database`);
         throw new Error(TRIP_NOT_FOUND)
     }
 
-    const formattedTripIncludeStopData = getFormattedTripWithStopData(tripIncldudeStopData)
+
+    const formattedTripIncludeStopData = getFormattedTripsListWithStops([tripIncldudeStopData])
     
     return formattedTripIncludeStopData;
 }
