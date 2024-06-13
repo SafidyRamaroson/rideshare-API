@@ -1,13 +1,11 @@
 const getRecentTrips = require("../services/trips/getRecentTrips");
 const getTripDetails = require("../services/trips/getTripDetails");
+const getTripsByCategoryService = require("../services/trips/getTripListByCategory");
 const handleCreateTrip = require("../services/trips/handleCreateTrip");
 const { getTripsAvailableSearch, getAllTrips, getAllTripsCreatedByDriver, handleDeleteTrip } = require("../services/trips/trips.service");
 const { TRIP_CREATED } = require("../utils/error.message");
 const handleError = require("../utils/handleError");
 
-
-// TODO:verify input incomning
-// Create new Trip OK
 const createTrip = async(req,res) => {
 
     console.log(req.body);
@@ -90,7 +88,7 @@ const fetchTripDetails = async(req,res)=>{
     
     try {
         const tripDetails  = await getTripDetails(tripId)
-        res.status(200).send(tripDetails)
+        res.status(200).send(...tripDetails)
     } catch (error) {
         handleError(res,error)
     }
@@ -107,6 +105,22 @@ const deleteTrip  = async(req,res,next) =>{
     }
 }
 
+
+const tripsByCategory = async(req,res) => {
+
+    const { page,category } = req.query
+    const size  = 9
+
+    try {
+        const tripsFilteredByCategory = await getTripsByCategoryService(category,page,size)
+        res
+        .status(200)
+        .json(tripsFilteredByCategory)
+    } catch (error) {
+        handleError(res,error)
+    }
+}
+
 module.exports = { 
     createTrip,
     searchTrips,
@@ -115,4 +129,5 @@ module.exports = {
     fetchTripDetails,
     deleteTrip,
     fetchRecentTrips,
+    tripsByCategory
 }
