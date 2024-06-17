@@ -1,6 +1,6 @@
 const getRecentTrips = require("../services/trips/getRecentTrips");
 const getTripDetails = require("../services/trips/getTripDetails");
-const getTripsByCategoryService = require("../services/trips/getTripListByCategory");
+// const getTripsByCategoryService = require("../services/trips/getTripListByCategory");
 const handleCreateTrip = require("../services/trips/handleCreateTrip");
 const { getTripsAvailableSearch, getAllTrips, getAllTripsCreatedByDriver, handleDeleteTrip } = require("../services/trips/trips.service");
 const { TRIP_CREATED } = require("../utils/error.message");
@@ -111,14 +111,14 @@ const tripsByCategory = async(req,res) => {
     const { page,category } = req.query
     const size  = 9
 
-    try {
-        const tripsFilteredByCategory = await getTripsByCategoryService(category,page,size)
-        res
-        .status(200)
-        .json(tripsFilteredByCategory)
-    } catch (error) {
-        handleError(res,error)
-    }
+    // try {
+    //     const tripsFilteredByCategory = await getTripsByCategoryService(category,page,size)
+    //     res
+    //     .status(200)
+    //     .json(tripsFilteredByCategory)
+    // } catch (error) {
+    //     handleError(res,error)
+    // }
 }
 
 module.exports = { 
